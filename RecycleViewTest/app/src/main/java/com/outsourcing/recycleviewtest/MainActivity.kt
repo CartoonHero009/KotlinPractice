@@ -9,11 +9,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.test_layout.view.*
 import android.app.Activity
-import android.app.NotificationManager
 import android.content.Context
-import android.content.Intent
 import android.os.Build
 import android.util.DisplayMetrics
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.outsourcing.models.applyEdit
 import java.time.Instant
 import java.time.LocalDateTime
@@ -21,16 +21,14 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import kotlin.collections.ArrayList
 import kotlin.time.*
-import android.content.pm.PackageManager
-import android.net.Uri
-import android.provider.Settings
 import com.outsourcing.models.NotificationSetUtil
-import com.outsourcing.models.startActivity
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
     private val testArray = ArrayList<String>(3)
+    private val lastVisibleItemPosition: Int
+        get() = (testListView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+
     private var aaa = true
 
     @UseExperimental(ExperimentalTime::class)
@@ -50,14 +48,16 @@ class MainActivity : AppCompatActivity() {
                 .withZone(ZoneOffset.UTC)
                 .format(Instant.now())
 
-            val sharedPrefs = getSharedPreferences("TEST",Context.MODE_PRIVATE)
+            val sharedPrefs = getSharedPreferences("TEST", Context.MODE_PRIVATE)
             sharedPrefs.applyEdit {
-                putString("Test_String",testString)
+                putString("Test_String", testString)
             }
             val aaa = ""
-            val testDate = LocalDateTime.parse(testString, DateTimeFormatter
-                .ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")
-                .withZone(ZoneOffset.UTC))
+            val testDate = LocalDateTime.parse(
+                testString, DateTimeFormatter
+                    .ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")
+                    .withZone(ZoneOffset.UTC)
+            )
 
             val today = LocalDateTime.now()
             val check = today.isAfter(testDate.plusDays(30))
@@ -71,8 +71,24 @@ class MainActivity : AppCompatActivity() {
         testArray.add("A")
         testArray.add("B")
         testArray.add("C")
-        val adapter = RecyclerAdapter(this,testArray)
+        val adapter = RecyclerAdapter(this, testArray)
         testListView.adapter = adapter
+        val itemDecoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        //itemDecoration.setDrawable(resources.getDrawable(R.drawable.divider_line))
+        testListView.addItemDecoration(itemDecoration)
+        testListView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                val totalItemCount = recyclerView.layoutManager!!.itemCount
+                if (totalItemCount == lastVisibleItemPosition + 1) {
+                    //requestPhoto()
+                }
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+            }
+        })
 
 //        if (aaa) {
 //            val intent = Intent()
@@ -83,17 +99,19 @@ class MainActivity : AppCompatActivity() {
 //            startActivity(intent)
 //            aaa = false
 //        }
-        NotificationSetUtil.openNotificationSetting(this,"bbbb",object:
+        NotificationSetUtil.openNotificationSetting(this, "bbbb", object :
             NotificationSetUtil.OnNextLitener {
             override fun onNext() {
                 print("sss")
             }
+
             override fun onError(message: String) {
                 print("bbb")
             }
         })
 
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.

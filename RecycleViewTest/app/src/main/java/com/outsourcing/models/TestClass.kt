@@ -1,6 +1,5 @@
 package com.outsourcing.models
 
-import android.app.NotificationManager
 import android.content.Context
 import android.content.pm.PackageManager
 
