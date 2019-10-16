@@ -35,15 +35,15 @@ class NotificationSetUtil {
         fun openNotificationSetting(context: Context,channelId: String?, onNextLitener: OnNextLitener?) {
             mOnNextLitener = onNextLitener
             var isEnabled = false
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                if (channelId.isNullOrEmpty()) {
-                    mOnNextLitener!!.onError("Empty channel id")
-                    return
-                }
-                isEnabled = isNotificationChannelEnabled(context, channelId!!)
-            }
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                if (channelId.isNullOrEmpty()) {
+//                    mOnNextLitener!!.onError("Empty channel id")
+//                    return
+//                }
+//                isEnabled = isNotificationChannelEnabled(context, channelId!!)
+//            }
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT< Build.VERSION_CODES.O) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT /*&& Build.VERSION.SDK_INT< Build.VERSION_CODES.O*/) {
                 isEnabled = isNotificationEnabled(context)
             }
 

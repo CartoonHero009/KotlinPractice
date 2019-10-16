@@ -37,4 +37,26 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:17.4.0'
     // MLBadgeTextView-debug
     implementation(name: "MLBadgeTextView", ext: "aar")
+
+    // Api Request
+    def moshiVersion="1.8.0"
+    def retrofit2_version = "2.6.2"
+    def okhttp3_version = "4.2.1"
+    def kotlinCoroutineVersion = "1.0.1"
+
+    //Moshi
+    implementation "com.squareup.moshi:moshi-kotlin:$moshiVersion"
+
+    //Retrofit2
+    implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit2_version"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
+
+    //Okhttp3
+    implementation "com.squareup.okhttp3:okhttp:$okhttp3_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3_version"
+
+    //Kotlin Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutineVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutineVersion"
 }
