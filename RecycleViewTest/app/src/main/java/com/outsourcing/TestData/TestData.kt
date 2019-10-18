@@ -54,3 +54,10 @@ data class ResponseData (
 data class QueryMSGAmountResponse(
     @Json(name = "unreadCount") var unreadCount: String
 )
+/*
+[星展+] 想要傳送通知
+
+(1) 通知包含提示、聲音和圖像標記. 可以在「設定」中進行設定.
+(2) 星展Card+ 相關通知, 陸續將以推播通知取代簡訊服務.
+不允許/允許
+ */
