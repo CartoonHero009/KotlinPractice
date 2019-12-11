@@ -5,7 +5,7 @@ import com.squareup.moshi.JsonClass
 
 
 data class TestBody (
-    val body  :TestData
+    val body  :Map<String,String>? = null
 )
 
 data class TestData (

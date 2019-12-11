@@ -1,5 +1,6 @@
 package com.outsourcing.models
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -15,6 +16,7 @@ import androidx.core.app.NotificationCompat
 import com.outsourcing.recycleviewtest.MainActivity
 
 
+@SuppressLint("Registered")
 class FCMService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
         super.onMessageReceived(remoteMessage)
