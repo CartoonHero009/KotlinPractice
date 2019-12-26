@@ -18,6 +18,7 @@ class TestClass {
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
         }
+        "2018-09-10 22:01:00".toDate().formatTo("dd MMM yyyy")
         return uid
     }
 
