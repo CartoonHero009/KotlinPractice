@@ -2,11 +2,14 @@ package com.outsourcing.models
 
 import android.content.Context
 import android.content.pm.PackageManager
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class TestClass {
 
     fun getUid(context: Context): String {
+
         var uid = ""
         try {
             val pm = context.packageManager
@@ -18,6 +21,17 @@ class TestClass {
         return uid
     }
 
+    fun String.toDate(dateFormat: String = "yyyy-MM-dd HH:mm:ss", timeZone: TimeZone = TimeZone.getTimeZone("UTC")): Date {
+        val parser = SimpleDateFormat(dateFormat, Locale.getDefault())
+        parser.timeZone = timeZone
+        return parser.parse(this)
+    }
+
+    fun Date.formatTo(dateFormat: String, timeZone: TimeZone = TimeZone.getDefault()): String {
+        val formatter = SimpleDateFormat(dateFormat, Locale.getDefault())
+        formatter.timeZone = timeZone
+        return formatter.format(this)
+    }
 //    fun Toast.createToast(context: Context, message:String, gravity:Int, duration:Int){
 //        val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 //        /*first parameter is the layout you made

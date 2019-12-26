@@ -18,7 +18,7 @@ import com.outsourcing.recycleviewtest.MainActivity
 
 @SuppressLint("Registered")
 class FCMService : FirebaseMessagingService() {
-    override fun onMessageReceived(remoteMessage: RemoteMessage?) {
+    override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
 
         if (remoteMessage!!.data != null) {
@@ -26,9 +26,9 @@ class FCMService : FirebaseMessagingService() {
         }
     }
 
-    override fun onNewToken(token: String?) {
+    override fun onNewToken(token: String) {
         super.onNewToken(token)
-        Log.i("MyFirebaseService", "token " + token!!)
+        Log.i("MyFirebaseService", "token " + token)
     }
 
     private inline fun <reified T : Activity> sendNotification(messageTitle: String?, messageBody: String?) {

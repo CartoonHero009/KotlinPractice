@@ -2,11 +2,11 @@ package com.outsourcing.models
 
 import java.util.regex.Pattern
 
-val domainArr= arrayOf(  "top", "com.cn", "com", "net", "cn", "cc", "gov", "cn", "hk");
+val localArr= arrayOf( "top", "com.cn", "com", "net", "cn", "cc", "gov", "cn", "hk");
 fun getCompleteUrl(text: String): Boolean {
     var sb = StringBuilder();
     sb.append("(");
-    for (f in domainArr) {
+    for (f in localArr) {
         sb.append(f);
         sb.append("|");
     }
